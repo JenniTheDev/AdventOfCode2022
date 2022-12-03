@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Day1;
+namespace Day01;
 
 internal static class DayOne
 {
@@ -55,27 +55,13 @@ internal static class DayOne
 
     private static int TotalTopThreeCalories()
     {
-        TopThree topThree = new();
-
-        foreach (var item in elfCaloriesCarried)
+        var topThree = elfCaloriesCarried.OrderByDescending(x => x).ToList();
+        int total = 0;
+        for (int i = 0; i < 3; i++)
         {
-            if (item > topThree.First)
-            {
-                topThree.Second = topThree.First;
-                topThree.First = item;
-                continue;
-            }
-            else if (item > topThree.Second && item < topThree.First)
-            {
-                topThree.Third = topThree.Second;
-                topThree.Second = item;
-            }
-            else if (item > topThree.Third && item < topThree.Second)
-            {
-                topThree.Third = item;
-            }
+            total += topThree[i];
         }
-        return topThree.TotalTopThree;
+        return total;
     }
 
     public static int SolvePartOne()
